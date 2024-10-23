@@ -1,10 +1,16 @@
+import os
 import streamlit as st
 import requests
-from backend.config import ModelConfig
+from src.config import ModelConfig, DatasetConfig
 from frontend.utils import get_feature, preprocess_feature, configuration
 from frontend.data_analysis import plot_figure
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("API_URL", "http://backend:8000")
+            
+def create_directories():
+    os.makedirs(DatasetConfig.RAW_DATA_DIR, exist_ok=True)
+    os.makedirs(DatasetConfig.PROCESSED_DATA_DIR, exist_ok=True)
+    os.makedirs(ModelConfig.MODEL_DIR, exist_ok=True)
 
 def predict_sales(input_data, model_option):
     """
@@ -84,10 +90,8 @@ def main():
     with tab1:
         st.subheader("Enter Marketing Spend Information")
 
-        # Move input features to main area
-        input_data = get_feature()  # Collecting input features here, outside the sidebar
+        input_data = get_feature()  
 
-        # Predict Button
         if st.button('Predict 🎯'):
             predict_sales(input_data, model_option)
             
@@ -105,5 +109,6 @@ if __name__ == "__main__":
     if 'models_trained' not in st.session_state:
         st.session_state.models_trained = False
         st.session_state.models_results = {}
-        
+    
+    create_directories()
     main()

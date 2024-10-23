@@ -1,6 +1,6 @@
 import requests
 import streamlit as st
-from backend.config import FeatureConfig
+from src.config import FeatureConfig
 
 def get_feature_input(feature_name, feature_type):
     label = f"{feature_name}"    
@@ -19,7 +19,7 @@ def get_feature():
     feature_info = [
         ('TV Spend', 'Float'),
         ('Radio Spend', 'Float'),
-        ('social Media Spend', 'Float'),
+        ('Social Media Spend', 'Float'),
         ('Influencer', 'Categorical')
     ]
 
