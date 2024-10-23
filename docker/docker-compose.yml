@@ -1,0 +1,45 @@
+# docker/docker-compose.yml
+services:
+  backend:
+    build:
+      context: ./..
+      dockerfile: backend/Dockerfile
+    container_name: backend_cont
+    volumes:
+      - ../src:/app/src
+      - ../data:/app/data
+      - ../models:/app/models
+    networks:
+      - sales_prediction_net
+    ports:
+      - 8000:8000
+    environment:
+      - PYTHONPATH=/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./..
+      dockerfile: frontend/Dockerfile
+    container_name: frontend_cont
+    volumes:
+      - ../src:/app/src
+      - ../data:/app/data
+      - ../models:/app/models
+    networks:
+      - sales_prediction_net
+    ports:
+      - 8501:8501
+    environment:
+      - PYTHONPATH=/app
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend  
+
+networks:
+  sales_prediction_net:
+    driver: bridge

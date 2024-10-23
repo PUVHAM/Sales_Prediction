@@ -1,0 +1,11 @@
+gdown
+tqdm
+numpy
+pandas
+streamlit
+scikit-learn
+fastapi
+uvicorn
+requests
+matplotlib
+seaborn
