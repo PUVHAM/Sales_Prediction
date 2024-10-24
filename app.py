@@ -5,7 +5,7 @@ from src.config import ModelConfig, DatasetConfig
 from frontend.utils import get_feature, preprocess_feature, configuration
 from frontend.data_analysis import plot_figure
 
-API_URL = os.getenv("BACKEND_URL", "https://localhost:8000")
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
             
 def create_directories():
     os.makedirs(DatasetConfig.RAW_DATA_DIR, exist_ok=True)
