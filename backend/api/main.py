@@ -1,6 +1,5 @@
 import os
 import joblib
-import uvicorn
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,3 +50,7 @@ def predict(request: PredictRequest):
         return {"prediction": float(prediction[0])}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
