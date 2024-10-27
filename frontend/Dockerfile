@@ -6,6 +6,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
+COPY src/ /app/src/
 COPY frontend/ frontend/
 COPY app.py .
 
